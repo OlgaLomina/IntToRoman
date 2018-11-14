@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Collections.Generic;
 /*Integer to Roman
 
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
@@ -44,11 +45,12 @@ Input: 1994
 Output: "MCMXCIV"
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 
- * */
+* */
 namespace IntToRoman
 {
     public class Program
     {
+
         public static string IntToRoman(int num)
         {
             StringBuilder sb = new StringBuilder();
@@ -59,29 +61,30 @@ namespace IntToRoman
             {
                 rem = result % 10;
                 result = (result - rem) / 10;
-                string ss = "";
 
                 if (rem < 4)
                 {
                     int ii = rem;
+                    string ss = "";
                     while (ii >= 1) //1+1+1
                     {
                         char cc = IsValue(1 * capacity);
                         ss = ss + Convert.ToString(cc);
                         ii--;
                     }
+                    sb.Insert(0, ss);
                 }
                 else if (rem == 4)
                 {
                     char cc = IsValue(5 * capacity);
                     char cc_b = FindPair(4 * capacity);
-                    ss = Convert.ToString(cc_b) + Convert.ToString(cc);
+                    sb.Insert(0, (Convert.ToString(cc_b) + Convert.ToString(cc)));
 
                 }
                 else if (rem < 9 ) //5+1+1+1
                 {
                     char cc = IsValue(5 * capacity);
-                    ss = Convert.ToString(cc);
+                    string ss = Convert.ToString(cc);
 
                     int ii = rem - 5;
                     while (ii >= 1)
@@ -90,15 +93,15 @@ namespace IntToRoman
                         ss = ss + Convert.ToString(cc);
                         ii--;
                     }
+                    sb.Insert(0, ss);
                 }
                 else if (rem == 9 )
                 {
                     char cc = IsValue(10 * capacity);
                     char cc_b = FindPair(9 * capacity);
-                    ss = Convert.ToString(cc_b) + Convert.ToString(cc);
+                    sb.Insert(0, (Convert.ToString(cc_b) + Convert.ToString(cc)));
                 }
-
-                sb.Insert(0, ss);
+               
                 capacity = capacity * 10;
             }
             return sb.ToString();
